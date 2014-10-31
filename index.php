@@ -1,4 +1,9 @@
 <?php
+  ini_set('display_startup_errors',1);
+  ini_set('display_errors',1);
+  error_reporting(-1);
+
+
   require_once('TwitterAPIExchange.php');
   
   $settings = array(
@@ -7,5 +12,16 @@
     'consumer_key' => "cR6YV752XhP8lgvcfEwcQUO4y",
     'consumer_secret' => "4ZEV91gYD9wxUbprqeUX9lQcaea1IxDu74EAKUBFhRz1nJ1z7L"
   );
+
+  $user_timeline_url = "https://api.twitter.com/1.1/statuses/user_timeline.json";
+  $request_method = "GET";
+
+  $get_field = '?screen_name=TechCrunch&count=10';
+
+  $twitter = new TwitterAPIExchange($settings);
+  echo $twitter->setGetfield($get_field)
+               ->buildOauth($user_timeline_url, $request_method)
+               ->performRequest();
+
 
 ?>
