@@ -4,7 +4,7 @@ namespace TwitterController;
 
 interface TwitterInterface{
   public function getTweets($count, $user);
-  public function postTweet();
+  public function postTweet($new_tweet);
 }
 
 class Twitter implements TwitterInterface{
@@ -31,9 +31,16 @@ class Twitter implements TwitterInterface{
     return $tweets;
   }
 
-  public function postTweet(){
+  public function postTweet($new_tweet){
+    $post_tweet_url = "https://api.twitter.com/1.1/statuses/update.json";
+    $tweet = $new_tweet;
+    $post_fields = array(
+      'status' => $tweet
+    );
 
-
+    $this->connection->buildOauth($post_tweet_url, "POST")
+                     ->setPostFields($post_fields)
+                     ->performRequest();
   }
 
 
