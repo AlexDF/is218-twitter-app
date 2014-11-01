@@ -16,12 +16,26 @@
   $user_timeline_url = "https://api.twitter.com/1.1/statuses/user_timeline.json";
   $request_method = "GET";
 
-  $get_field = '?screen_name=TechCrunch&count=10';
+  $get_field = '?count=10';
 
   $twitter = new TwitterAPIExchange($settings);
-  echo $twitter->setGetfield($get_field)
+  $string = json_decode($twitter->setGetfield($get_field)
                ->buildOauth($user_timeline_url, $request_method)
-               ->performRequest();
+               ->performRequest(), $assoc = TRUE);
+  print_r($string);
 
+
+
+  $post_tweet_url = "https://api.twitter.com/1.1/statuses/update.json";
+  $request_method = "POST";
+  $tweet = "TwitterAPI Exchange is very easy to use!";
+  $post_fields = array(
+    'status' => $tweet
+  );
+  
+  $twitter = new TwitterAPIExchange($settings);
+  $twitter->buildOauth($post_tweet_url, $request_method)
+          ->setPostfields($post_fields)
+          ->performRequest();
 
 ?>
