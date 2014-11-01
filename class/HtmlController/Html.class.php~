@@ -1,0 +1,13 @@
+<?php
+  
+  namespace HtmlController;
+
+  class Html{
+    
+    public static function render($type){
+      $obj = new $type;
+      
+    }
+  }
+
+?>
