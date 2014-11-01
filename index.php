@@ -3,9 +3,21 @@
   ini_set('display_errors',1);
   error_reporting(-1);
 
+  function my_autoloader($class){
+    $filepath = 'class/' . str_replace("\\", "/", $class) . '.class.php';
+    include $filepath;
+  }
+
+  spl_autoload_register('my_autoloader');
 
   require_once('TwitterAPIExchange.php');
+  include 'class/Twitter.class.php';
+
+  $twitter = new Twitter;
+  $tweets = $twitter->getTweets(10);
+  print_r($tweets);
   
+  /*
   $settings = array(
     'oauth_access_token' => "2849321127-VTfYJfhIobqLa1CUKSMDaQwv9tRs9bRB0uWGLdq",
     'oauth_access_token_secret' => "fMmAUgvf0w3RbFDMYrgaBHTucR9Otom5IsDk3nW5W5vCW",
@@ -37,5 +49,8 @@
   $twitter->buildOauth($post_tweet_url, $request_method)
           ->setPostfields($post_fields)
           ->performRequest();
+*/
+
+
 
 ?>
