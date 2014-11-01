@@ -1,6 +1,8 @@
 <?php
 
+interface TwitterInterface{
 
+}
 
 class Twitter{
 
