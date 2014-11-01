@@ -1,11 +1,14 @@
 <?php
 
-interface TwitterInterface{
+namespace TwitterController;
 
+interface TwitterInterface{
+  public function getTweets($count, $user);
+  public function postTweet();
 }
 
-class Twitter{
-
+class Twitter implements TwitterInterface{
+  
   private $settings = array(
     'oauth_access_token' => "2849321127-VTfYJfhIobqLa1CUKSMDaQwv9tRs9bRB0uWGLdq",
     'oauth_access_token_secret' => "fMmAUgvf0w3RbFDMYrgaBHTucR9Otom5IsDk3nW5W5vCW",
@@ -26,6 +29,11 @@ class Twitter{
                  ->performRequest(), $assoc = TRUE);
 
     return $tweets;
+  }
+
+  public function postTweet(){
+
+
   }
 
 
