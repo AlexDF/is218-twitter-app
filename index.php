@@ -10,7 +10,7 @@
 
   spl_autoload_register('my_autoloader');
 
-  require_once('TwitterAPIExchange.php');
+  require_once('lib/TwitterAPIExchange.php');
   include 'class/Twitter.class.php';
 
   $twitter = new Twitter;
