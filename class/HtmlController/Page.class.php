@@ -8,7 +8,7 @@ namespace HtmlController;
   
     public function buildPage($body){
       
-      return $this->header . $body . $this->footer;
+      echo $this->header . $body . $this->footer;
     }
   }
 

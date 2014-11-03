@@ -4,20 +4,36 @@ namespace HtmlController;
 
 class Index extends Page{
 
-    
+    public $content;
 
-    public $content = '<form method="post" action="index.php?pagetype=Index&post_tweet=TRUE"><textarea name="new_tweet" rows=7 cols=28></textarea><input type="Submit"/></form>';
+
+    function displayTweets(){
+      $tweets = $this->twitter->getTweets(10);
+      $output = '<table cellpadding="5"><tr><th>User</th><th>Tweet</th><th>Time Created</th></tr>';
+      foreach( $tweets as $tweet ){
+        $output .= '<tr><td>' . $tweet['user']['name'] . '</td><td>' .  $tweet['text'] . '</td><td>' . $tweet['created_at'] . '</td></tr>'; 
+      }
+      
+      $output .= '</table>';
+      return $output;
+      
+    }
+
 
     function __construct(){
-      $twitter = new \TwitterController\Twitter;
+
+      $this->twitter = new \TwitterController\Twitter;
       if( isset($_GET['post_tweet']) ){
-        //$twitter = new \TwitterController\Twitter;
-        $twitter->postTweet($_POST['new_tweet']);
+        $this->twitter->postTweet($_POST['new_tweet']);
       }
 
-      $this->content .= $twitter->getTweets(10);
+      $this->content = '<form method="post" action="index.php?pagetype=Index&post_tweet=TRUE">' .
+        '<textarea name="new_tweet" rows=7 cols=28 placeholder="Post a new tweet here.">' .
+        '</textarea><br><br><input type="Submit"/></form><br><br>';
 
-      echo $this->buildPage($this->content);
+      $this->content .= $this->displayTweets();
+
+      $this->buildPage($this->content);
     }
 }
 

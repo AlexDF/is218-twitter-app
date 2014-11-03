@@ -12,7 +12,7 @@
  * @link     http://github.com/j7mbo/twitter-api-php
  */
 
-namespace TwitterController;
+//namespace TwitterController;
 
 class TwitterAPIExchange
 {

@@ -38,14 +38,15 @@ class Twitter implements TwitterInterface{
       'status' => $tweet
     );
 
-    $this->connection->buildOauth($post_tweet_url, "POST")
+    $this->postconnection->buildOauth($post_tweet_url, "POST")
                      ->setPostFields($post_fields)
                      ->performRequest();
   }
 
 
   function __construct(){
-    $this->connection = new TwitterAPIExchange($this->settings);
+    $this->connection = new \TwitterAPIExchange($this->settings);
+    $this->postconnection = new\TwitterAPIExchange($this->settings);
   }
 
 }
